@@ -19,6 +19,7 @@ class App extends React.Component {
     this.handleInput = this.handleInput.bind(this);
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.setUpdate = this.setUpdate.bind(this)
     // binding the two method is very important, otherwise it will return referenceerror to all object contain this since this is not binded
   }
   handleInput(e) {
@@ -63,6 +64,23 @@ class App extends React.Component {
     })
   }
 
+  setUpdate(text,key) {
+    const items = this.state.items;
+    items.map(item => {
+      if(item.key === key) {
+        item.text = text;
+      }
+    })
+    this.setState({
+      items: items
+    })
+  }
+  // the principle of adding and updating is almost the same.
+  // first define the var to hold the value of items (the empty array)
+  // then loop the empty array using map.
+  // write the conditional to check if the item key is equal to key, then redesignate item.text to be text, as in parameter.
+  // finallly set the state of items equal var items (the variable and the text).
+
   render() {
   return (
     <div className='App'>
@@ -77,7 +95,7 @@ class App extends React.Component {
           styles is inside the id to-do-form */}
         </form>
       </header>
-      <ListItem items={this.state.items} deleteItem={this.deleteItem}/>
+      <ListItem items={this.state.items} deleteItem={this.deleteItem} setUpdate={this.setUpdate}/>
     </div>
   );
   }   
